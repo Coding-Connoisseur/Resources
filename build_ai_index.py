@@ -10,7 +10,13 @@ import time
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()
+# Load environment variables from ~/.env
+load_dotenv(dotenv_path=os.path.expanduser("~/.env"))
+
+if not os.getenv("OPENAI_API_KEY") or "your-api-key" in os.getenv("OPENAI_API_KEY"):
+    print("❌ ERROR: OPENAI_API_KEY is missing or placeholder. Set a valid key in your .env file.")
+    sys.exit(1)
+
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -19,8 +25,7 @@ from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import TextLoader
 
-# Load environment variables
-load_dotenv()
+
 
 # Constants
 ALLOWED_EXTS = {
