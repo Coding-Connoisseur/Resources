@@ -7,6 +7,7 @@ import zipfile
 
 exclude_dirs = {
     ".venv",
+    "faiss-index",
     "../oldMenus",
     "node_modules",
     "Resources",
@@ -330,13 +331,12 @@ def combine_files_from_list(file_list, output_file):
                 analysis = file_analysis.get(file_path, {})
                 outfile.write("### Contextual Analysis ###\n")
                 outfile.write(
-                    f"Module Docstring: {
-                    analysis.get('module_docstring', 'None')}\n"
+                    f"Module Docstring: {analysis.get('module_docstring', 'None')}\n"
                 )
                 outfile.write(
-                    f"Git Metadata: {
-                    analysis.get('git_metadata', 'N/A')}\n\n"
+                    f"Git Metadata: {analysis.get('git_metadata', 'N/A')}\n\n"
                 )
+
                 outfile.write("Functions Defined:\n")
                 for func in analysis.get("functions_defined", []):
                     outfile.write(f"  {func['name']} (Lines: {func['lines']}): {func['doc']}\n")
